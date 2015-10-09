@@ -1,7 +1,7 @@
 FROM ubuntu:14.04
 
 RUN apt-get update
-RUN apt-get install -y python build-essential python-dev python-pip python-virtualenv
+RUN apt-get install -y python build-essential python-dev python-pip
 
 # thumbor/engine dependencies
 RUN apt-get install -y graphicsmagick \
@@ -11,11 +11,12 @@ RUN apt-get install -y graphicsmagick \
   libboost-python-dev \
   python-pycurl
 
-WORKDIR /tmp
-ADD requirements.txt /tmp/
-RUN pip install -r requirements.txt
-ADD . /tmp/
+RUN pip install thumbor
+RUN pip install graphicsmagick-engine
 
-WORKDIR /tmp
+ADD thumbor.conf /tmp/thumbor.conf
+
 EXPOSE 8080
-# ENTRYPOINT "thumbor -c thumbor.conf -p 8080"
+
+ENTRYPOINT ["/usr/local/bin/thumbor"]
+CMD ["--port=8080", "-c", "/tmp/thumbor.conf"]
