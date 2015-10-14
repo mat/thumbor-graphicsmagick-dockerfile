@@ -1,7 +1,14 @@
 # thumbor-graphicsmagick-dockerfile
 
-Let's try to use the graphicsmagick engine for thumbor...
-See `Dockerfile`.
+This `Dockerfile` describes how to setup thumbor with the graphicsmagick engine on Ubuntu.
+
+## How to run
+
+    git clone git@github.com:mat/thumbor-graphicsmagick-dockerfile.git
+    cd thumbor-graphicsmagick-dockerfile
+    docker build -t thumbor-gm .
+    docker run -p 8080:8080 thumbor-gm
+    curl -I http://$(docker-machine ip default):8080
 
 
 ## Thanks
